@@ -1,5 +1,9 @@
 require "cuba"
 
+Dir[File.dirname(__FILE__) + "/app/models/*.rb"].each do |file|
+  require file
+end
+
 Cuba.define do
   on get do
     on "" do
@@ -18,6 +22,10 @@ Cuba.define do
       res.write render("app/views/layouts/main.erb") {
         render("app/views/not_found.erb")
       }
+    end
+
+    on "widget" do
+      res.write Widget.get
     end
 
     on true do
